@@ -4,7 +4,11 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+just clone this repo
+
+open with VS code and in terminal 
+
+futter run
 
 A few resources to get you started if this is your first Flutter project:
 
