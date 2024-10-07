@@ -1,5 +1,6 @@
+import 'package:country_code_picker_plus/country_code_picker_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input_v2/intl_phone_number_input.dart';
+import 'package:flutter/services.dart';
 import 'package:webdemo/screens/opt_View.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,7 +12,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? phoneNumber;
-  PhoneNumber number = PhoneNumber(isoCode: 'US');
+  String message = "";
+  String _selectedCountryCode1 = '+1';
+
+  Country? _selectedCountry;
+
+  bool _isPhoneNumberValid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +32,41 @@ class _HomePageState extends State<HomePage> {
               "Enter your mobile number.",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
-            InternationalPhoneNumberInput(
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
+            _buildTextField(CountryCodePicker(
+              onChanged: (country) {
+                setState(() {
+                  _selectedCountryCode1 = country.dialCode ?? '';
+                });
+                _printCountryCode(country);
               },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: const SelectorConfig(
-                selectorType: PhoneInputSelectorType.DROPDOWN,
-              ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              initialValue: number,
-              textFieldController: TextEditingController(),
-              formatInput: true,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                phoneNumber = number.phoneNumber;
-              },
-            ),
+              initialSelection: 'US',
+              favorite: [_selectedCountryCode1],
+              showFlag: true,
+              showDropDownButton: true,
+            )),
+            // InternationalPhoneNumberInput(
+            //   onInputChanged: (PhoneNumber number) {
+            //     print(number.phoneNumber);
+            //   },
+            //   onInputValidated: (bool value) {
+            //     print(value);
+            //   },
+            //   selectorConfig: const SelectorConfig(
+            //     selectorType: PhoneInputSelectorType.DROPDOWN,
+            //   ),
+            //   ignoreBlank: false,
+            //   autoValidateMode: AutovalidateMode.disabled,
+            //   initialValue: number,
+            //   textFieldController: TextEditingController(),
+            //   formatInput: true,
+            //   keyboardType:
+            //       TextInputType.numberWithOptions(signed: true, decimal: true),
+            //   inputBorder: OutlineInputBorder(),
+            //   onSaved: (PhoneNumber number) {
+            //     phoneNumber = number.phoneNumber;
+            //   },
+            // ),
+
             const Spacer(),
             Center(
               child: ElevatedButton(
@@ -71,5 +90,32 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Widget _buildTextField(Widget prefixIcon) {
+    return TextField(
+      keyboardType: TextInputType.phone,
+      textInputAction: TextInputAction.done,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        PhoneNumberFormatter(),
+      ],
+      textAlign: TextAlign.start,
+      textAlignVertical: TextAlignVertical.center,
+      decoration: InputDecoration(
+          prefixIcon: prefixIcon,
+          hintText: 'Enter phone number',
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.red))),
+    );
+  }
+
+  _printCountryCode(Country? country) {
+    if (country != null) {
+      debugPrint(country.name);
+      debugPrint(country.code);
+      debugPrint(country.dialCode);
+    }
   }
 }

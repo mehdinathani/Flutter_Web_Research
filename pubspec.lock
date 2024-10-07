@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  country_code_picker_plus:
+    dependency: "direct main"
+    description:
+      name: country_code_picker_plus
+      sha256: "82d8f553aec73d0eb58590520b041989ca52bffbec2e128a52d1d436995cebd9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.9"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -148,18 +156,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
-  intl_phone_number_input_v2:
-    dependency: "direct main"
-    description:
-      name: intl_phone_number_input_v2
-      sha256: "64040986598b6f9b1bb96edf94781eae1f1ca1f6836629de871b1f371ab046d0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.6"
+    version: "0.19.0"
   js:
     dependency: transitive
     description:
