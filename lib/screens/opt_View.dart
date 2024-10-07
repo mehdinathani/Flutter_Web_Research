@@ -46,7 +46,7 @@ class _OptViewState extends State<OptView> {
             Text(
                 "Enter the verification sent to you at \n${widget.phoneNumber}"),
             OTPTextField(
-                fieldWidth: 200,
+                fieldWidth: MediaQuery.of(context).size.width / 8,
                 fieldStyle: FieldStyle.box,
                 controller: otpController,
                 width: MediaQuery.of(context).size.width,

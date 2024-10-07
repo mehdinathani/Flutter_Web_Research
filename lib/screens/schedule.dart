@@ -5,6 +5,7 @@ import 'package:webdemo/screens/addCard.dart';
 class Schedule extends StatefulWidget {
   final int installments;
   final double price;
+
   const Schedule({super.key, required this.installments, required this.price});
 
   @override
@@ -19,36 +20,35 @@ class _ScheduleState extends State<Schedule> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            Text("${widget.installments} Paymnets"),
+            Text("${widget.installments} Payments"),
             ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: widget.installments,
               itemBuilder: (context, index) {
                 return ListTile(
-                    title: Text('Payment ${index + 1}'),
-                    trailing: Text(
-                      currencyFormatter
-                          .format((widget.price / widget.installments)),
-                    ));
+                  title: Text('Payment ${index + 1}'),
+                  trailing: Text(
+                    currencyFormatter
+                        .format((widget.price / widget.installments)),
+                  ),
+                );
               },
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text("Total : Inclusive 1%  processing fee"),
-                Spacer(),
+                const Text("Total: Inclusive of 1% processing fee"),
+                const Spacer(),
                 Text(currencyFormatter.format(widget.price)),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.grey),
               child: Row(
@@ -62,18 +62,16 @@ class _ScheduleState extends State<Schedule> {
                     "Smart",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  const Text("Waive the \$ 40 fee"),
-                  Spacer(),
+                  const SizedBox(width: 10),
+                  const Text("Waive the \$40 fee"),
+                  const Spacer(),
                   Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(20)),
-                    child: Text(
+                    child: const Text(
                       "Try free",
                       style: TextStyle(
                         color: Colors.white,
@@ -83,11 +81,11 @@ class _ScheduleState extends State<Schedule> {
                 ],
               ),
             ),
-            Spacer(),
+            const SizedBox(height: 20),
             Row(
               children: [
-                Text("Pay with"),
-                Spacer(),
+                const Text("Pay with"),
+                const Spacer(),
                 Row(
                   children: const [
                     Icon(Icons.apple),
@@ -97,23 +95,24 @@ class _ScheduleState extends State<Schedule> {
                 )
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(Colors.purple)),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            CheckOutAddCard(price: widget.price),
-                      ));
-                },
-                child: Text(
-                    style: TextStyle(color: Colors.white),
-                    "Pay US ${currencyFormatter.format((widget.price / widget.installments))}")),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.purple),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CheckOutAddCard(price: widget.price),
+                  ),
+                );
+              },
+              child: Text(
+                "Pay US ${currencyFormatter.format(widget.price / widget.installments)}",
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
